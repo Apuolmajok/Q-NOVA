@@ -1,0 +1,98 @@
+{% extends 'base.html'%}
+
+{% block content%}
+<div class="Cart" style="margin: 0 auto; max-width: 1000px;">
+    <div class="Cart-header" style="color: hsl(353, 100%, 78%); text-align: center; font-size: 300%;">
+        <h1 style="margin: 0; padding: 0;">CheckOut Now</h1>
+        <p>Fill in your billing information to checkout</p>
+        <br/>
+    </div>
+    <br/>
+
+    
+
+
+    <div style="display: flex;">
+        <div style="flex: 50%; padding: 20px; margin: 10px; border: 1px solid #ccc; box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19); border-radius: 1rem; border: transparent;">
+            <div id="form-wrapper" style="margin: 10px;">
+                <form id="form">
+                    <div id="user-info">
+                        <div style="margin-bottom: 10px;">
+                            <input required type="text" name="name" placeholder="Name.." style="width: 100%; padding: 8px; margin: 5px 0; box-sizing: border-box; border: 1px solid #ccc; border-radius: 1px; border-bottom-left-radius: 1rem; border-top-left-radius: 1rem; border-top-right-radius: 1rem; border-bottom-right-radius: 1rem;">
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <input required type="email" name="email" placeholder="Email.." style="width: 100%; padding: 8px; margin: 5px 0; box-sizing: border-box; border: 1px solid #ccc; border-radius: 1px; border-bottom-left-radius: 1rem; border-top-left-radius: 1rem; border-top-right-radius: 1rem; border-bottom-right-radius: 1rem;">
+                        </div>
+                    </div>
+                    
+                    <div id="shipping-info" style="margin-top: 20px;">
+                        <hr style="border-top: 1px solid #ccc;">
+                        <p style="font-size: 16px; margin-top: 20px; margin-bottom: 20px;">Shipping Information:</p>
+                        <hr style="border-top: 1px solid #ccc;">
+                        <div style="margin-bottom: 10px;">
+                            <input type="text" name="address" placeholder="Address.." style="width: 100%; padding: 8px; margin: 5px 0; box-sizing: border-box; border: 1px solid #ccc; border-radius: 1px; border-bottom-left-radius: 1rem; border-top-left-radius: 1rem; border-top-right-radius: 1rem; border-bottom-right-radius: 1rem;">
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <input type="text" name="city" placeholder="City.." style="width: 100%; padding: 8px; margin: 5px 0; box-sizing: border-box; border: 1px solid #ccc; border-radius: 1px; border-bottom-left-radius: 1rem; border-top-left-radius: 1rem; border-top-right-radius: 1rem; border-bottom-right-radius: 1rem;">
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <input type="text" name="state" placeholder="State.." style="width: 100%; padding: 8px; margin: 5px 0; box-sizing: border-box; border: 1px solid #ccc; border-radius: 1px; border-bottom-left-radius: 1rem; border-top-left-radius: 1rem; border-top-right-radius: 1rem; border-bottom-right-radius: 1rem;">
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <input type="text" name="zipcode" placeholder="Zip code.." style="width: 100%; padding: 8px; margin: 5px 0; box-sizing: border-box; border: 1px solid #ccc; border-radius: 1px; border-bottom-left-radius: 1rem; border-top-left-radius: 1rem; border-top-right-radius: 1rem; border-bottom-right-radius: 1rem;">
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <input type="text" name="country" placeholder="Country.." style="width: 100%; padding: 8px; margin: 5px 0; box-sizing: border-box; border: 1px solid #ccc; border-radius: 1px; border-bottom-left-radius: 1rem; border-top-left-radius: 1rem; border-top-right-radius: 1rem; border-bottom-right-radius: 1rem;">
+                        </div>
+                    </div>
+
+                    <hr style="border-top: 1px solid #ccc;">
+                    <input id="form-button" type="submit" value="Continue" style="background-color: #28a745; color: white; padding: 10px; width: 100%; border: none; cursor: pointer; border-radius: 1px; border-bottom-left-radius: 1rem; border-top-left-radius: 1rem; border-top-right-radius: 1rem; border-bottom-right-radius: 1rem;">
+                </form>
+            </div>
+        </div>
+
+        <div style="flex: 50%; padding: 20px; margin: 10px; border: 1px solid #ccc; box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19); border-radius: 1rem; border: transparent;">
+            <div>
+                <a href="{% url 'cart' %}" style="text-decoration: none; display: inline-block; padding: 10px 20px; background-color: transparent; color: black; border: 1px solid black; margin-bottom: 20px;">&#x2190; Back to Cart</a>
+                <hr style="border-top: 1px solid #ccc;">
+                <h3 style="margin-top: 0;  margin-top: 20px; margin-bottom: 20px;">Order Summary</h3>
+                <hr style="border-top: 1px solid #ccc;">
+                
+                {%for item in items%}
+                <div style="display: flex; margin-bottom: 20px; margin-left: 10px; margin-right: 20px; margin-top: 25px; margin-bottom: 20px; justify-content: space-between;">
+                    <div style="flex:2;"><img src="{{item.product.image1.url}}" alt="Product Image" style="width: 50px;"></div>
+                    <div style="flex:2; margin-right: 30px;"><p style="margin: 0;">{{item.product.name}}</p></div>
+                    <div style="flex:1; margin-right: 45px;"><p style="margin: 0;">UGX {{item.product.price}}</p></div>
+                    <div style="flex:1; text-align: right;"><p style="margin: 0;">x {{item.quantity}}</p></div>
+                </div>
+                {%endfor%}
+
+                <hr style="border-top: 1px solid #ccc;">
+                <h5>Items:  {{order.get_cart_items}}</h5>
+                <h5>Total:  UGX {{order.get_cart_total}}</h5>
+            </div>
+        </div>
+    </div>
+
+
+
+        
+   
+    <br/><br/><br/><br/><br/><br/><br/>
+    
+</div>
+
+
+
+</div>
+
+<script>
+    var shipping = '{{order.shipping}}'
+
+    if(shipping='False'){
+        document.getElementId('shipping-info').innerhtml=''
+    }
+    
+<script>
+{% endblock%}

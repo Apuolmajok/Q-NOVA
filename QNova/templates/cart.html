@@ -1,0 +1,88 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content%}
+<div class="Cart" style="margin: 0 auto; max-width: 1000px;">
+    <div class="Cart-header" style="color: hsl(353, 100%, 78%); text-align: center; font-size: 300%;">
+        <h1 style="margin: 0; padding: 0;">Shopping Cart</h1>
+        <p>View Your Cart</p>
+        <br/>
+    </div>
+    <br/>
+
+    <div style="margin: auto; max-width: 1000px; width: 100%; box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19); border-radius: 1rem; border: transparent;">
+        <div>
+            <div style="background-color: #fff; padding: 4vh 5vh; border-bottom-left-radius: 1rem; border-top-left-radius: 1rem;">
+                <div style="margin-bottom: 5vh;">
+                    <div>
+                        <div><h4><b>Shopping Cart</b></h4></div>
+                        <div style="text-align: right; color: #6c757d;">items:  {{order.get_cart_items}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><br/>
+    {%for item in items%}
+    <div style="margin: 0; border-top: 1px solid rgba(0,0,0,.125); border-bottom: 1px solid rgba(0,0,0,.125);">
+        <div style="margin: 0; padding: 2vh 0; width: 100%; display: flex; align-items: center; justify-content: space-between;">
+            <div style="padding: 0 1vh;"><img style="width: 3.5rem;" src="{{item.product.image1.url}}"></div>
+            <div style="padding: 0 1vh;">
+                <div style="color: #6c757d;">{{item.product.Category}}</div>
+                <div>{{item.product.name}}</div>
+            </div>
+            
+            
+                <div style="padding: 0 1vh; padding-right: 10px; display: flex; justify-content: space-between;">
+                    <div style="padding: 0 1vh; padding-right: 100px; ">UGX {{item.product.price}} </div>
+                    <div style="padding: 0 1vh; display: flex; padding-right: 100px; gap: 10px; ">
+                        <button><h4 data-product="{{item.product.id}}" data-action="remove" class="update-cart" style="color: black; text-decoration: none; padding: 0 1vh;">-</h4></button>
+                        <a href="#" style="color: black; text-decoration: none; padding: 0 1vh; border: 1px solid rgba(0, 0, 0, 0.137);">{{item.quantity}}</a>
+                        <button><h4 data-product="{{item.product.id}}" data-action="add" class="update-cart" style="color: black; text-decoration: none; padding: 0 1vh;">+</h4></button>
+                    </div>
+                    <div style="padding: 0 1vh; padding-right: 100px; ">UGX {{item.get_total}} </div>
+                    <span style="margin-left: auto; font-size: 0.7rem; text-align: right; padding-right: 20px;" class="banner-btn">&#10005;</span>
+                </div>
+
+                
+            </div>
+    </div>
+    {%endfor%}
+    <div style="margin-top: 4.5rem; display: flex; gap: 10px; padding-bottom:30px;">
+        <a href="{%url 'Home'%}" style="color: black; text-decoration: none;">&leftarrow;</a>
+        <span style="color: #6c757d;">Back to shop</span>
+    </div>
+    <div style="background-color: #ddd; border-top-right-radius: 1rem; border-bottom-right-radius: 1rem; padding: 4vh; color: rgb(65, 65, 65);">
+        <div><h5><b>Summary</b></h5></div>
+        <hr style="margin-top: 1.25rem;">
+        <div style="margin: 0;">
+            <div style="padding: 0 1vh; padding-left:0;">ITEMS  {{order.get_cart_items}}</div>
+            <div style="padding: 0 1vh; text-align: right;">UGX  {{order.get_cart_total}}</div>
+        </div>
+        <form style="padding: 2vh 0;">
+            <p>SHIPPING</p>
+            <select style="border: 1px solid rgba(0, 0, 0, 0.137); padding: 1.5vh 1vh; margin-bottom: 4vh; outline: none; width: 100%; background-color: rgb(247, 247, 247);">
+                <option style="color: #6c757d;">Standard-Delivery- UGX 5.00</option>
+            </select>
+            <p>GIVE CODE</p>
+            <input id="code" style="border: 1px solid rgba(0, 0, 0, 0.137); padding: 1vh; margin-bottom: 4vh; outline: none; width: 100%; background-color: rgb(247, 247, 247);" placeholder="Enter your code">
+        </form>
+        <div style="margin: 0; border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+            <div style="padding: 0 1vh;">TOTAL PRICE</div>
+            <div style="padding: 0 1vh; text-align: right;">UGX </div>
+        </div>
+            <a href='{% url 'checkout' %}'>
+                <button style="background-color:hsl(152, 51%, 52%); border-color: #000; color: white; width: 100%; font-size: 0.7rem; margin-top: 4vh; padding: 1vh; border-radius: 1px; border-bottom-left-radius: 1rem; border-top-left-radius: 1rem; border-top-right-radius: 1rem; border-bottom-right-radius: 1rem;" class="banner-btn">CHECKOUT</button>
+            </a>
+    </div>
+    
+    
+
+        
+   
+    <br/><br/><br/><br/><br/><br/><br/>
+    
+</div>
+
+
+
+</div>
+{% endblock%}

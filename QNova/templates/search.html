@@ -1,0 +1,147 @@
+{% extends 'base.html'%}
+
+{% block content%}
+<div class="login" style="margin: 0 auto; max-width: 1000px;">
+    <div class="login-header" style="color: hsl(353, 100%, 78%); text-align: center; font-size: 40px;">
+        <h1 style="margin: 0; padding: 0;">You Have just Searched for...</h1>
+    </div>
+       <br/>
+  
+     <p style="text-align: center;">
+       {%if searched%}
+
+
+    <div class="product-main">
+           
+      <div class="product-grid">
+      <br/><br/>
+        {%for product in searched%}
+        {% if product.is_sale %}
+        <div class="showcase">
+        
+          <div class="showcase-banner">
+  
+            <img src="{{product.image.url}}"alt="Mens Winter Leathers Jackets" width="300" class="product-img default">
+            <img src="{{product.image.url}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img hover">
+  
+            <p class="showcase-badge angle black">sale</p>
+  
+            <div class="showcase-actions">
+  
+              <button class="btn-action">
+                <ion-icon name="heart-outline"></ion-icon>
+              </button>
+  
+              <a href="{% url 'product' product.id%}" >
+                <button class="btn-action">
+                  <ion-icon name="eye-outline"></ion-icon>
+                </button>
+              </a>
+  
+              <button class="btn-action">
+                <ion-icon name="repeat-outline"></ion-icon>
+              </button>
+  
+              <button class="btn-action">
+                <ion-icon name="bag-add-outline"></ion-icon>
+              </button>
+  
+            </div>
+  
+          </div>
+  
+          <div class="showcase-content">
+  
+            <a href="#" class="showcase-category">{{product.Category}}</a>
+  
+            <a href="{% url 'product' product.id%}">
+              <h3 class="showcase-title">{{product.name}}</h3>
+            </a>
+  
+            <div class="showcase-rating">
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star-outline"></ion-icon>
+              <ion-icon name="star-outline"></ion-icon>
+            </div>
+  
+            <div class="price-box">
+              <p class="price">UGX {{product.sale_price}}</p>
+              <del>UGX {{product.price}}</del>
+            </div>
+  
+          </div>
+  
+        </div>
+        {%else%}
+        <div class="showcase">
+        
+          <div class="showcase-banner">
+  
+            <img src="{{product.image.url}}"alt="Mens Winter Leathers Jackets" width="300" class="product-img default">
+            <img src="{{product.image.url}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img hover">
+            
+            <div class="showcase-actions">
+  
+              <button class="btn-action">
+                <ion-icon name="heart-outline"></ion-icon>
+              </button>
+  
+                <a href="{% url 'product' product.id%}" >
+                  <button class="btn-action">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </button>
+                </a>
+  
+              <button class="btn-action">
+                <ion-icon name="repeat-outline"></ion-icon>
+              </button>
+  
+              <button class="btn-action">
+                <ion-icon name="bag-add-outline"></ion-icon>
+              </button>
+  
+            </div>
+  
+          </div>
+  
+          <div class="showcase-content">
+  
+            <a href="#" class="showcase-category">{{product.Category}}</a>
+  
+            <a href="{% url 'product' product.id%}">
+              <h3 class="showcase-title">{{product.name}}</h3>
+            </a>
+  
+            <div class="showcase-rating">
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star-outline"></ion-icon>
+              <ion-icon name="star-outline"></ion-icon>
+            </div>
+  
+            <div class="price-box">
+              <p class="price">UGX {{product.price}}</p>
+              <del>UGX {{product.sale_price}}</del>
+            </div>
+  
+          </div>
+  
+        </div>
+        {%endif%}
+          {%endfor%}
+        </div>
+  
+      </div>
+       {%endif%}
+      </p>
+      
+
+
+
+      <br/><br/><br/><br/><br/><br/><br/><br/>
+      
+   </div>
+{% endblock%}
