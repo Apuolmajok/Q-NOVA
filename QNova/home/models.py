@@ -1,7 +1,31 @@
 from django.db import models
 import datetime
 from django.contrib.auth.models import User
+from django.conf import settings
 from django.db.models.signals import post_save
+
+
+#VENDOR 
+
+class Vendor(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
+    store_name = models.CharField(max_length=255)
+    username = models.CharField(max_length=255, blank=True, unique=True)
+    email = models.EmailField(max_length=255, blank=True)
+    store_description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    logo=models.ImageField(upload_to='uploads/cta/')
+    password=models.CharField(max_length=100, blank=True)
+
+    def __str__(self):
+        return self.store_name
+
+
+
+
+
+
+
 
 #create customer profile
 class Profile(models.Model):
@@ -47,16 +71,37 @@ class Category(models.Model):
 
     class Meta:
         verbose_name_plural = 'categories'
+        
+# class Category(models.Model):
+#     name = models.CharField(max_length=50)
+#     slug = models.SlugField(max_length=50, unique=True, blank=True)  
+
+#     def save(self, *args, **kwargs):
+#         # Automatically generate the slug from the name if it's not set
+#         if not self.slug:
+#             self.slug = slugify(self.name)
+#         super().save(*args, **kwargs)
+
+#     def __str__(self):
+#         return self.name
+
+#     class Meta:
+#         verbose_name_plural = 'categories'
+        
+        
+        
+        
+        
 
 
 #Customers
 class Customer(models.Model):
     user=models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
-    first_name=models.CharField(max_length=50)
-    last_name=models.CharField(max_length=50)
-    phone=models.CharField(max_length=10)
-    email=models.EmailField(max_length=100)
-    password=models.CharField(max_length=100)
+    first_name=models.CharField(max_length=50, blank=True)
+    last_name=models.CharField(max_length=50, blank=True)
+    phone=models.CharField(max_length=10, null=True, blank=True)
+    email=models.EmailField(max_length=100, null=True)
+    password=models.CharField(max_length=100, blank=True)
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
@@ -64,10 +109,11 @@ class Customer(models.Model):
 
 #All products
 class Product(models.Model):
+    vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE, null=True, blank=True)
     name=models.CharField(max_length=200)
     price=models.DecimalField(default=0,decimal_places=2, max_digits=16)
     Category=models.ForeignKey(Category, on_delete=models.CASCADE, default=1)
-    description=models.CharField(max_length=500, default='', blank=True, null=True)
+    description=models.TextField( max_length=500, default='', blank=True, null=True)
     image1=models.ImageField(upload_to='uploads/products/')
     image2=models.ImageField(upload_to='uploads/products/', blank=True, null=True)
     #Add sales
@@ -77,6 +123,26 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+    
+    
+    
+class Produk(models.Model):
+    # vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE, related_name='products')
+    name=models.CharField(max_length=200)
+    price=models.DecimalField(default=0,decimal_places=2, max_digits=16)
+    Category=models.ForeignKey(Category, on_delete=models.CASCADE, default=1)
+    description=models.CharField(max_length=500, default='', blank=True, null=True)
+    image1=models.ImageField(upload_to='uploads/produks/')
+    image2=models.ImageField(upload_to='uploads/produks/', blank=True, null=True)
+   
+    #Add sales
+    is_sale = models.BooleanField(default=False)
+    sale_price = models.DecimalField(default=0,decimal_places=2, max_digits=16)
+   
+    def __str__(self):
+        return self.name
+    
+    
     
 class Product_feature(models.Model):
     name=models.CharField(max_length=200)
@@ -93,7 +159,7 @@ class Product_feature(models.Model):
 
 #Orders
 class Order(models.Model):
-    product=models.ForeignKey(Product, on_delete=models.CASCADE)
+    product=models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True)
     customer=models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
     quantity=models.IntegerField(default=1)
     address=models.CharField(max_length=200, default='', blank=True)
@@ -128,6 +194,8 @@ class Order(models.Model):
                 shipping=True
 
         return shipping
+    
+    
 
     
 class OrderItem(models.Model):

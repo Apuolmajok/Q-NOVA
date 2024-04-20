@@ -1,7 +1,132 @@
 {% extends 'base.html'%}
+{% load static %}
 
 {% block content%}
 <br/><br/><br/><br/><br/>
-ABOUT ME STAFF
+  <!--
+            - PRODUCT FEATURED
+          -->
+
+          <div class="product-featured" style='padding:10px 30px 10px 30px'>
+
+            <h2 class="title" style="color:hsl(353, 100%, 78%); font-size:50px">This is About our Quick Nova Business</h2>
+
+            <div class="showcase-wrapper has-scrollbar">
+
+            
+              
+
+              <div class="showcase-container">
+
+                <div class="showcase">
+                  
+                  <div class="showcase-banner">
+                    <img src="{% static 'assets/images/about2.jpg'%}" alt="product name" class="showcase-img">
+                  </div>
+
+                  <div class="showcase-content">
+                    
+                   
+
+                    <a href="#">
+                      <h3 class="showcase-title">{{product_feature.name}}</h3>
+                    </a>
+
+                    <p class="showcase-desc">
+                      "
+                      Welcome to QNova, your premier destination for a seamless and dynamic shopping experience that brings together a diverse array of vendors from all corners of the globe. At QNova, we're not just a marketplace; we're a community where unique, quality products meet exceptional service.
+                      <br/>
+                      <h1><b>Our Mission</b></h1><br/>
+                      Our mission is simple yet ambitious: to revolutionize the way you shop by providing a platform that supports small businesses and entrepreneurs, offering customers unparalleled access to a vast selection of products across all categories. From handcrafted goods to the latest tech innovations, QNova is committed to enriching your shopping experience while fostering an environment where our vendors thrive.
+                      <br/><br/>
+                      <h1><b>Our Values</b></h1><br/>
+                      <b>Community and Collaboration;</b> At the heart of QNova is our commitment to building a supportive community. We believe in the power of collaboration, where vendors help each other grow and where customers' feedback shapes the future of our platform.
+                      <br/>
+                      <b>Innovation;</b> We constantly strive to innovate, ensuring that our platform is not only user-friendly but also at the forefront of e-commerce technology. Our team works tirelessly to introduce features that make shopping and selling as efficient and enjoyable as possible.
+                      <br/>
+                      
+                    </p>
+
+                   
+
+                    <button  class="add-cart-btn" href="#">Contact Us</button>
+
+                   
+
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+
+        </div>
+
+
+        <br/><br/>
+
+
+        <div class="product-featured" style='padding:10px 30px 10px 30px'>
+
+           
+
+            <div class="showcase-wrapper has-scrollbar">
+
+        <div class="showcase-container">
+
+            <div class="showcase">
+              
+              <div class="showcase-banner">
+                <img src="{% static 'assets/images/ABOUT1.jpg'%}" alt="product name" class="showcase-img">
+              </div>
+
+              <div class="showcase-content">
+                
+               
+
+                <a href="#">
+                  <h3 class="showcase-title">{{product_feature.name}}</h3>
+                </a>
+
+                <p class="showcase-desc">
+                  "
+                 
+                  <b>Quality and Diversity;</b> We are dedicated to offering a wide range of quality products. Our multi-vendor approach ensures that customers have access to a diverse product selection, fulfilling all shopping needs under one roof.
+                  <br/>
+                  <b>Sustainability;</b> Recognizing our role in the global market, QNova is committed to promoting sustainable practices among our vendors, encouraging eco-friendly products and packaging.
+                  <br/><br/>
+                  <h1><b>What Sets Us Apart<br/></h1>
+                    <b>User-Centric Design;</b> Our platform is designed with you in mind. Whether you're browsing on your phone or your computer, we guarantee an intuitive and hassle-free shopping experience.
+                  <br/>
+                  <b> Empowerment Through Technology;</b> We empower our vendors with robust tools and insights to grow their businesses on our platform, helping them connect with customers who love what they love.
+                  <br/>
+                  <b>A Global Marketplace;</b> With vendors from over 50 countries, QNova is a melting pot of cultures, products, and ideas. We bring the world to your doorstep, offering items you won't find anywhere else.
+                  <br/><br/>
+                  <h1><b>Join Us on Our Journey</b></h1><br/>
+                  Whether you're a vendor looking to expand your reach or a shopper in search of something special, QNova is your gateway to an extraordinary online marketplace. Join our community today and be part of a story that's just beginning to unfold.
+                  <br/><br/>
+                  Welcome to QNova – where every purchase tells a story, and every visit brings you closer to the world."
+                </p>
+
+                
+
+                <button  class="add-cart-btn" href="#">Contact Us</button>
+
+                
+
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
 <br/><br/><br/><br/><br/><br/><br/>
 {% endblock%}

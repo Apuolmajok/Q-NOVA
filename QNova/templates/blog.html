@@ -1,0 +1,55 @@
+{% extends 'base.html'%}
+{% load static %}
+{%block content%}
+
+<h2 class="title" style="color:hsl(353, 100%, 78%); font-size:50px">Check out our latest news from our blog</h2>
+
+<div class="blog" style="flex-direction: column">
+
+    <div class="container">
+
+      <div class="blog-container has-scrollbar">
+
+
+{% comment %}         
+        {%for blog in blogs%}
+
+        <div class="blog-card">
+
+          <a href="#">
+            <img src="{{ blog.image.url }}" alt="Clothes Retail KPIs 2021 Guide for Clothes Executives" width="300" class="blog-banner">
+          </a>
+
+          <div class="blog-content">
+
+            <a href="#" class="blog-category">{{blog.Category}}</a>
+
+            <a href="#">
+              <h3 class="blog-title">{{blog.blogtitle}}</h3>
+            </a>
+
+            <p class="blog-meta">
+              By <cite>{{blog.title}} {{blog.name}}</cite> / <time datetime="2024-04-06">{{blog.date}}</time>
+            </p>
+
+          </div>
+
+        </div>
+        {%endfor%} {% endcomment %}
+
+
+
+      </div>
+
+    </div>
+</div>
+
+
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+{%endblock%}

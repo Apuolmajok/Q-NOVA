@@ -1,0 +1,18 @@
+{% extends 'base.html'%}
+{%block content%}
+
+<br></br>
+<div class="register" style="margin: 0 auto; max-width: 1000px;">
+    <div class="register-header" style="color: hsl(353, 100%, 100%); text-align: center; font-size: 100%;">
+        <h1 style="margin: 0; padding: 0;">Register Your Business</h1>
+    </div>
+    <form class="registration-form" method="POST" action="{% url 'vendorsignup' %}" style="border: 0.5px solid #fff; background: hsl(353, 100%, 78%); border-radius: 10px; box-shadow: 0px 0px 10px #000; box-sizing: border-box; padding-top: 30px; padding-left: 40px; padding-bottom: 10%; margin: 5% auto; text-align: left;">
+        {% csrf_token %}
+        {{ form2.as_p}}
+       <br/><br/>
+       <input type="submit" value="Register" style="height: 30px; width: 100px; background: #fff; border: 1px solid #f2f2f2; border-radius: 20px; color: slategrey; text-transform: uppercase; font-family: 'Ubuntu', sans-serif; cursor: pointer;">
+    </form>
+</div>
+<br></br>
+<br></br>
+{%endblock%}

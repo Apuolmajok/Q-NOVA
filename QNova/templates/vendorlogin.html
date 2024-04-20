@@ -1,0 +1,41 @@
+{% extends 'base.html'%}
+{%block content%}
+
+<br></br>
+<div class="login" style="margin: 0 auto; max-width: 1000px;">
+    <div class="login-header" style="color: hsl(353, 100%, 78%); text-align: center; font-size: 200%;">
+        <h1 style="margin: 0; padding: 0;">Login To Dashboard</h1>
+    </div>
+    <form class="login-form" method="POST" action="{% url 'vendorlogin' %}" style="border: 0.5px solid #fff; background: hsl(353, 100%, 80%); border-radius: 10px; box-shadow: 0px 0px 10px #000; box-sizing: border-box; padding-top: 30px; padding-left: 40px; padding-bottom: 10%; margin: 5% auto; text-align: center;">
+        {% csrf_token %}
+        <h3 style="text-align: left; margin-left: 40px; color: #fff; margin: 0; padding: 0;">Vendor username:</h3>
+        <input type="text" name="username" placeholder="Enter Username" style="max-width: 400px; width: 80%; line-height: 3em; font-family: 'Ubuntu', sans-serif; margin: 1em 2em; border-radius: 5px; border: 2px solid #f2f2f2; outline: none; padding-left: 10px;"><br>
+        <h3 style="text-align: left; margin-left: 40px; color: #fff; margin: 0; padding: 0;">Password:</h3>
+        <input type="password" name="password" placeholder="Enter Password" style="max-width: 400px; width: 80%; line-height: 3em; font-family: 'Ubuntu', sans-serif; margin: 1em 2em; border-radius: 5px; border: 2px solid #f2f2f2; outline: none; padding-left: 10px;"><br>
+        <input type="submit" value="Login To Dashboard" style="height: 30px; width: 200px; background: #fff; border: 1px solid #f2f2f2; border-radius: 20px; color: slategrey; text-transform: uppercase; font-family: 'Ubuntu', sans-serif; cursor: pointer;">
+        <br>
+        <a href="{%url 'vendorsignup'%}" class="sign-up" style="color: #f2f2f2; cursor: pointer; text-decoration: underline;">Register Now</a>
+        <br>
+        
+    </form>
+</div>
+<style>
+@media only screen and (min-width: 150px) and (max-width: 530px) {
+    .login-form {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .login-form h3 {
+        text-align: center;
+        margin: 0;
+    }
+    .sign-up, .no-access {
+        margin: 10px 0;
+    }
+    .login-button {
+        margin-bottom: 10px;
+    }
+}
+</style>
+<br></br>
+{%endblock%}

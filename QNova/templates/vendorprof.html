@@ -1,0 +1,45 @@
+{% extends 'base.html'%}
+{%block content%}
+
+<br></br>
+<div style="display: flex; flex-wrap: wrap; margin-right: -15px; margin-left: -15px;">
+    <div style="position: relative; width: 100%; padding-right: 15px; padding-left: 15px; flex: 0 0 41.6667%; max-width: 41.6667%;">
+        <h4 style=" padding-left: 30px;"><b>OWN YOUR BUSINESS:</b></h4>
+        <hr>
+        <body style=" padding-left: 30px;">
+           
+            <div style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); border-radius: 5px; padding: 20px; margin: 10px; min-height: 200px;">
+                <div style="padding: 2px 16px;">
+                    
+                    <a href='{% url 'vendorsignup' %}' >
+                        <button style="background-color:hsl(152, 51%, 52%); border-color: #000; color: white; width: 100%; font-size: 0.7rem; margin-top: 4vh; padding: 1vh; border-radius: 1px; border-bottom-left-radius: 1rem; border-top-left-radius: 1rem; border-top-right-radius: 1rem; border-bottom-right-radius: 1rem;" class="banner-btn">Register Business</button>
+                    </a>
+
+                </div>
+            </div>
+        </body>
+    </div>
+
+
+
+
+    
+        <div style="position: relative; width: 100%; padding-right: 15px; padding-left: 15px; flex: 0 0 41.6667%; max-width: 41.6667%;">
+            <h4 style=" padding-left: 30px;"><b>I ALREADY HAVE A BUSINESS:</b></h4>
+            <hr>
+            <body style=" padding-left: 30px;">
+               
+                <div style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); border-radius: 5px; padding: 20px; margin: 10px; min-height: 200px;">
+                    <div style="padding: 2px 16px;">
+                        
+                        <a href='{% url 'vendorlogin' %}' >
+                            <button style="background-color:hsl(152, 51%, 52%); border-color: #000; color: white; width: 100%; font-size: 0.7rem; margin-top: 4vh; padding: 1vh; border-radius: 1px; border-bottom-left-radius: 1rem; border-top-left-radius: 1rem; border-top-right-radius: 1rem; border-bottom-right-radius: 1rem;" class="banner-btn">GET TO MY DASHBOARD</button>
+                        </a>
+    
+                    </div>
+                </div>
+            </body>
+        </div>
+    </div>
+<br></br>
+{%endblock%}

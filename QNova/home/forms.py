@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm,SetPasswordForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, SetPasswordForm
 from django import forms
 from django.utils.safestring import mark_safe
-from .models import Profile
+from .models import Profile, Vendor, Produk, Category
 
 
 class UserInfoForm(forms.ModelForm):
@@ -105,9 +105,8 @@ class SignUpForm(UserCreationForm):
 		password1_help_text = """
         <ul style="list-style-type: disc; padding-left: 20px;">
             <li>Your password can't be too similar to your other personal information.</li>
-            <li>Your password must contain at least 8 characters.</li>
-            <li>Your password can't be a commonly used password.</li>
-            <li>Your password can't be entirely numeric.</li>
+         
+            <li>Your password can be minimum of 8 characters and can't be entirely numeric.</li>
         </ul>
         """
 		self.fields['password1'].widget.attrs['style'] = 'display: block; width: 100%; padding: .375rem .75rem; font-size: 1rem; line-height: 1.5; color: #495057; background-color: #fff; border: 1px solid #ced4da;'
@@ -119,3 +118,58 @@ class SignUpForm(UserCreationForm):
 		self.fields['password2'].widget.attrs['placeholder'] = 'Confirm Password'
 		self.fields['password2'].label = ''
 		self.fields['password2'].help_text = '<span class="form-text text-muted";><small>Enter the same password as before, for verification.</small></span>'
+
+
+
+
+
+
+
+
+
+
+class VendorSignUpForm(forms.ModelForm):
+    username = forms.CharField(max_length=255)
+    email = forms.EmailField(max_length=255)
+    logo=forms.ImageField(label="", widget=forms.FileInput(attrs={'style': 'display: block; width: 100%; border-radius: 1px; padding: .375rem .75rem; font-size: 1rem; line-height: 1.5; color: #495057; background-color: #fff; border: 1px solid #ced4da; margin-bottom: 15px;', 'placeholder': 'phone'}),help_text='Add logo.', required=False)
+    store_name = forms.CharField(max_length=255, help_text='enter store name')
+    store_description = forms.CharField(widget=forms.Textarea(attrs={'style':'margin: 40px'}), help_text='')
+
+    class Meta:
+        model = Vendor
+        fields = ['logo', 'username', 'email', 'store_name', 'store_description']
+        
+   
+    
+	
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class ProductForm(forms.ModelForm):
+		name=forms.CharField(label="", widget=forms.TextInput(attrs={'style': 'display: block; border-radius: 1px; width: 100%; padding: .375rem .75rem; font-size: 1rem; line-height: 1.5; color: #495057; background-color: #fff; border: 1px solid #ced4da; margin-bottom: 15px;', 'placeholder': 'product name'}), required=False)
+		price=forms.DecimalField(label="", widget=forms.TextInput(attrs={'style': 'display: block; border-radius: 1px; width: 100%; padding: .375rem .75rem; font-size: 1rem; line-height: 1.5; color: #495057; background-color: #fff; border: 1px solid #ced4da; margin-bottom: 15px;', 'placeholder': 'Enter Amount'}), required=False)
+		Category = forms.ModelChoiceField(queryset=Category.objects.all(),label="",widget=forms.Select(attrs={'style': 'display: block; width: 100%; border-radius: 1px;padding: .375rem .75rem; font-size: 1rem; line-height: 1.5; color: #495057; background-color: #fff; border: 1px solid #ced4da; margin-bottom: 15px;', 'placeholder': 'Enter Amount',}),required=False)
+		description=forms.CharField(label="", widget=forms.Textarea(attrs={'style': 'display: block; width: 100%; border-radius: 1px; padding: .375rem .75rem; font-size: 1rem; line-height: 1.5; color: #495057; background-color: #fff; border: 1px solid #ced4da; margin-bottom: 15px;', 'placeholder': 'Describe your product'}), required=False)
+		image1=forms.ImageField(label="", widget=forms.FileInput(attrs={'style': 'display: block; width: 100%; border-radius: 1px; padding: .375rem .75rem; font-size: 1rem; line-height: 1.5; color: #495057; background-color: #fff; border: 1px solid #ced4da; margin-bottom: 15px;', 'placeholder': 'phone'}), required=False)
+		image2=forms.ImageField(label="", widget=forms.FileInput(attrs={'style': 'display: block; width: 100%; padding: .375rem .75rem; font-size: 1rem; line-height: 1.5; color: #495057; background-color: #fff; border: 1px solid #ced4da; margin-bottom: 15px;', 'placeholder': 'phone'}), required=False)
+		# #Add sales
+		is_sale = forms.BooleanField(label="", widget=forms.CheckboxInput(attrs={'style': 'display: block; width: 100%; border-radius: 1px; padding: .375rem .75rem; font-size: 1rem; line-height: 1.5; color: #495057; background-color: #fff; border: 1px solid #ced4da; margin-bottom: 15px;', 'placeholder': 'is_sale '}), required=False)
+		sale_price = forms.DecimalField(label="", widget=forms.TextInput(attrs={'style': 'display: block; width: 100%; border-radius: 1px; padding: .375rem .75rem; font-size: 1rem; line-height: 1.5; color: #495057; background-color: #fff; border: 1px solid #ced4da; margin-bottom: 15px;', 'placeholder': 'sale_price'}), required=False)
+		# digital=forms.BooleanField(label="", widget=forms.TextInput(attrs={'style': 'display: block; width: 100%; padding: .375rem .75rem; font-size: 1rem; line-height: 1.5; color: #495057; background-color: #fff; border: 1px solid #ced4da; margin-bottom: 15px;', 'placeholder': 'phone'}), required=False)
+
+		class Meta:
+			model = Produk
+			fields = ('name',  'price', 'description', 'Category', 'image1','image2', 'is_sale', 'sale_price' )

@@ -17,13 +17,19 @@ urlpatterns = [
         path('update_info/', views.update_info, name='update_info'),
         path('business/', views.business, name='business'),
         path('product/<int:pk>', views.product, name='product'),
-        path('category/<str:foo>', views.category, name='category'),
+        path('produk/<int:pk>', views.produk, name='produk'),
+        path('category/<str:category_name>', views.category, name='category'),
         path('blogcategory/<str:foo>', views.blogcategory, name='blogcategory'),
         # path('newarrival/', views.newarrival, name='newarrival'),
         # path('trending/', views.trending, name='trending'),
         # path('toprated/', views.toprated, name='toprated'),
         # path('bestsells/', views.bestsells, name='bestsells'),
         # path('testimonials/', views.testimonials, name='testimonials'),
-        # path('blog/', views.blog, name='blog'),
+        path('blog/', views.blog, name='blog'),
+        path('dashboard/', views.dashboard, name='dashboard'),  
+        path('vendorprof/', views.vendorprof, name='vendorprof'),
+        path('vendorsignup/',views.vendorsignup, name='vendorsignup'),
+        path('vendorlogin/',views.vendorlogin, name='vendorlogin'),
+        
 
 ]

@@ -1,0 +1,209 @@
+{% extends 'base.html'%}
+{%block content%}
+
+<br>
+<h4 style=" padding-left: 30px; align: center"><b>WELCOME TO YOUR DASHBOARD!!!   <h2 style="color:hsl(353, 100%, 78%); display:block">{{ vendor.store_name}}</h2></b></h4>
+
+{% include 'status.html'%}
+
+<div style="display: flex; flex-wrap: wrap; margin-right: -15px; margin-left: -15px;">
+    <div style="position: relative; width: 100%; padding-right: 15px; padding-left: 15px; flex: 0 0 41.6667%; max-width: 41.6667%;">
+        <h4 style=" padding-left: 30px;"><b>CUSTOMERS:</b></h4>
+        <hr>
+        <body style=" padding-left: 30px;">
+            <a href='{% url 'checkout' %}' >
+                <button style="background-color:hsl(152, 51%, 52%); border-color: #000; color: white; width: 100%; font-size: 0.7rem; margin-top: 4vh; padding: 1vh; border-radius: 1px; border-bottom-left-radius: 1rem; border-top-left-radius: 1rem; border-top-right-radius: 1rem; border-bottom-right-radius: 1rem;" class="banner-btn">Create Customer</button>
+            </a>
+            <div style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); border-radius: 5px; padding: 20px; margin: 10px; min-height: 200px;">
+                <div style="padding: 2px 16px;">
+                    
+<table style="width: 100%; border-collapse: collapse;">
+    <thead>
+        <tr>
+            <th tyle="padding: 8px; text-align: left; background-color: #f2f2f2;"></th>
+            <th style="padding: 8px; text-align: left; background-color: #f2f2f2;">Customer</th>
+            <th style=" padding: 8px; text-align: left; background-color: #f2f2f2;">Phone</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style=" padding: 8px; text-align: left;"> <a href="{% url 'Home'%}" class="banner-btn">View</a> </td>
+            <td style=" padding: 8px; text-align: left;">James Apuol</td>
+            <td style=" padding: 8px; text-align: left;">555-0100</td>
+        </tr>
+        <!-- Additional rows can be added here with similar inline styling -->
+    </tbody>
+</table>
+
+                </div>
+            </div>
+        </body>
+    </div>
+
+
+
+
+    <div style="position: relative; width: 100%; padding-right: 15px; padding-left: 15px; flex: 0 0 41.6667%; max-width: 49.6667%;">
+        <h4 style=" padding-left: 30px;"><b>RECENT ORDERS</b></h4>
+        <hr>
+        <body style=" padding-left: 30px;">
+            <a href='{% url 'checkout' %}' >
+                <button style="background-color:hsl(152, 51%, 52%); border-color: #000; color: white; width: 100%; font-size: 0.7rem; margin-top: 4vh; padding: 1vh; border-radius: 1px; border-bottom-left-radius: 1rem; border-top-left-radius: 1rem; border-top-right-radius: 1rem; border-bottom-right-radius: 1rem;" class="banner-btn">Confirm pending orders</button>
+            </a>
+            <div style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); border-radius: 5px; padding: 20px; margin: 10px; min-height: 200px;">
+                <div style="padding: 2px 16px;">
+                    
+<table style="width: 100%; border-collapse: collapse;">
+    <thead>
+        <tr>
+            <th tyle="padding: 8px; text-align: left; background-color: #f2f2f2;">Product</th>
+            <th style="padding: 8px; text-align: left; background-color: #f2f2f2;">Order Date</th>
+            <th style=" padding: 8px; text-align: left; background-color: #f2f2f2;">Status</th>
+            <th style=" padding: 8px; text-align: left; background-color: #f2f2f2;">Customer</th>
+            <th style=" padding: 8px; text-align: left; background-color: #f2f2f2;">Update</th>
+            <th style=" padding: 8px; text-align: left; background-color: #f2f2f2;">Remove</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style=" padding: 8px; text-align: left;">Shirt</td>
+            <td style=" padding: 8px; text-align: left;">19/03/24</td>
+            <td style=" padding: 8px; text-align: left;">pending</td>
+            <td style=" padding: 8px; text-align: left;">James Apuol</td>
+            <td style=" padding: 8px; text-align: left;"><a href="{% url 'Home'%}" class="banner-btn" style="background-color:hsl(152, 51%, 52%);">Update</a></td>
+            <td style=" padding: 8px; text-align: left;"><a href="{% url 'Home'%}" class="banner-btn">Delete</a></td>
+        </tr>
+        <!-- Additional rows can be added here with similar inline styling -->
+    </tbody>
+</table>
+
+                </div>
+            </div>
+        </body>
+    </div>
+
+</div>
+
+
+
+<br><br>
+
+
+
+<div style="display: flex; flex-wrap: wrap; margin-right: -15px; margin-left: -15px;">
+    <div style="position: relative; width: 100%; padding-right: 15px; padding-left: 15px; flex: 0 0 41.6667%; max-width: 41.6667%;">
+        <h4 style=" padding-left: 30px;"><b>PUBLISH YOUR PRODUCTS:</b></h4>
+        <hr>
+        <body style=" padding-left: 30px;">
+           
+            <div style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); border-radius: 5px; padding: 20px; margin: 10px; min-height: 200px;">
+                <div style="padding: 2px 16px;">
+                    
+
+            <h1 tyle="padding: 8px; text-align: left; background-color: #f2f2f2;">ADD PRODUCT</h1>
+            {% comment %} <form action="/submit-product" method="post" enctype="multipart/form-data">
+                <div style="display: flex; justify-content: space-between;">
+                <label for="productName">Product Name:</label>
+                <input type="text" id="productName" name="productName" required style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); border-radius: 5px;  max-width: 50.6667%;"><br>
+                </div><br>
+                
+                <div style="display: flex; justify-content: space-between;">
+                <label for="productDesc">Product Description:</label><br>
+                <textarea id="productDesc" name="productDesc" rows="4" required style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); border-radius: 5px; max-width: 50.6667%;"></textarea><br>
+                </div><br><br>
+                
+                <div style="display: flex; justify-content: space-between;">
+                <label for="productPrice">Price:</label><br>
+                <input type="number" id="productPrice" name="productPrice" step="0.01" required style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); border-radius: 5px; max-width: 50.6667%;"><br>
+                </div><br>
+                
+                <div style="display: flex; justify-content: space-between;">
+                <label for="productCategory">Category:</label><br>
+                <select id="productCategory" name="productCategory" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); border-radius: 5px; max-width: 50.6667%;">
+                    <option value="electronics">Electronics</option>
+                    <option value="clothing">Clothing</option>
+                    <option value="beauty">Beauty</option>
+                    
+                </select><br>
+                </div><br>
+                
+                <div style="display: flex; justify-content: space-between;">
+                <label for="productImages">Product Images:</label><br>
+                <input type="file" id="productImages" name="productImages" multiple style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); border-radius: 5px; max-width: 50.6667%;"><br>
+                </div><br>
+
+                <div style="display: flex; justify-content: space-between;">
+                <label for="isSold">Is_Sold</label><br>
+                <input  style="transform: scale(0.5); margin-left: -2px; ; border-radius: 5px; "  type="checkbox" id="isSold" name="isSold">
+                </div><br>
+
+                <div style="display: flex; justify-content: space-between;">
+                    <label for="productPrice">sale_Price:</label><br>
+                    <input type="number" id="productPrice" name="productPrice" step="0.01" required style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); border-radius: 5px; max-width: 50.6667%;"><br>
+                </div><br>
+                
+                <a href='{% url 'checkout' %}' >
+                    <button type="submit" value="Add Product" style="background-color:hsl(152, 51%, 52%); border-color: #000; color: white; width: 100%; font-size: 0.7rem; margin-top: 4vh; padding: 1vh; border-radius: 1px; border-bottom-left-radius: 1rem; border-top-left-radius: 1rem; border-top-right-radius: 1rem; border-bottom-right-radius: 1rem;" class="banner-btn">Add</button>
+                </a>
+            </form>
+      {% endcomment %}
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form1.as_p }}
+           
+            {% comment %} <a href='{% url 'business' %}' > {% endcomment %}
+                <button type="submit" value="Add Product" style="background-color:hsl(152, 51%, 52%); border-color: #000; color: white; width: 100%; font-size: 0.7rem; margin-top: 4vh; padding: 1vh; border-radius: 1px; border-bottom-left-radius: 1rem; border-top-left-radius: 1rem; border-top-right-radius: 1rem; border-bottom-right-radius: 1rem;" class="banner-btn">Add</button>
+            {% comment %} </a> {% endcomment %}
+        </form>
+
+
+                </div>
+            </div>
+        </body>
+    </div>
+
+
+
+
+    <div style="position: relative; width: 100%; padding-right: 15px; padding-left: 15px; flex: 0 0 41.6667%; max-width: 49.6667%;">
+        <h4 style=" padding-left: 30px;"><b>UPDATE MY BUSINESS</b></h4>
+        <hr>
+        <body style=" padding-left: 30px;">
+            <a href='{% url 'checkout' %}' >
+                <button style="background-color:hsl(152, 51%, 52%); border-color: #000; color: white; width: 100%; font-size: 0.7rem; margin-top: 4vh; padding: 1vh; border-radius: 1px; border-bottom-left-radius: 1rem; border-top-left-radius: 1rem; border-top-right-radius: 1rem; border-bottom-right-radius: 1rem;" class="banner-btn">Confirm pending orders</button>
+            </a>
+            <div style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); border-radius: 5px; padding: 20px; margin: 10px; min-height: 200px;">
+                <div style="padding: 2px 16px;">
+                    
+<table style="width: 100%; border-collapse: collapse;">
+    <thead>
+        <tr>
+            <th tyle="padding: 8px; text-align: left; background-color: #f2f2f2;">Product</th>
+            <th style="padding: 8px; text-align: left; background-color: #f2f2f2;">Order Date</th>
+            <th style=" padding: 8px; text-align: left; background-color: #f2f2f2;">Status</th>
+            <th style=" padding: 8px; text-align: left; background-color: #f2f2f2;">Customer</th>
+            <th style=" padding: 8px; text-align: left; background-color: #f2f2f2;">Update</th>
+            <th style=" padding: 8px; text-align: left; background-color: #f2f2f2;">Remove</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style=" padding: 8px; text-align: left;">Shirt</td>
+            <td style=" padding: 8px; text-align: left;">19/03/24</td>
+            <td style=" padding: 8px; text-align: left;">pending</td>
+            <td style=" padding: 8px; text-align: left;">James Apuol</td>
+            <td style=" padding: 8px; text-align: left;"><a href="{% url 'Home'%}" class="banner-btn" style="background-color:hsl(152, 51%, 52%);">Update</a></td>
+            <td style=" padding: 8px; text-align: left;"><a href="{% url 'Home'%}" class="banner-btn">Delete</a></td>
+        </tr>
+        <!-- Additional rows can be added here with similar inline styling -->
+    </tbody>
+</table>
+
+                </div>
+            </div>
+        </body>
+    </div>
+
+</div>
+<br>
+{%endblock%}

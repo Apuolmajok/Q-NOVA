@@ -1308,7 +1308,7 @@
                       <ion-icon name="repeat-outline"></ion-icon>
                     </button>
 
-                    <button class="btn-action">
+                    <button data-product={{product.id}} data-action="add" class="btn-action update-cart">
                       <ion-icon name="bag-add-outline"></ion-icon>
                     </button>
 
@@ -1432,30 +1432,33 @@
           <!--
             - TESTIMONIALS
           -->
+         
 
           <div class="testimonial">
 
             <h2 class="title">testimonial</h2>
 
+            {%for testimonial in testimonials%}
+
             <div class="testimonial-card">
 
-              <img src="{{testimonials.image.url}}" alt="allan m" class="testimonial-banner" width="80" height="80">
+              <img src="{{ testimonials.image.url }}" alt="allan m" class="testimonial-banner" width="80" height="80">
 
-              <p class="testimonial-name">{{testimonials.name}}</p>
+              <p class="testimonial-name">{{ testimonials.name }}</p>
 
-              <p class="testimonial-title">{{testimonials.title}}</p>
+              <p class="testimonial-title">{{ testimonials.title }}</p>
 
               <img src="{% static 'assets/images/icons/quotes.svg'%}" alt="quotation" class="quotation-img" width="26">
 
               <p class="testimonial-desc">
-               {{testimonials.description1}}<b>Quick Nova</b> {{testimonials.description2}}
+               {{ testimonials.description1 }}<b>Quick Nova</b> {{testimonials.description2}}
               </p>
 
             </div>
-
+            {% endfor %}
           </div>
 
-
+       
 
           <!--
             - CTA
@@ -1463,15 +1466,15 @@
 
           <div class="cta-container">
 
-            <img src="{{cta.image.url}}" alt="summer collection" class="cta-banner">
+            <img src="{{Cta.image.url}}" alt="summer collection" class="cta-banner">
 
             <a href="#" class="cta-content">
 
-              <p class="discount">{{cta.discount}}% Discount</p>
+              <p class="discount">{{Cta.discount}}% Discount</p>
 
-              <h2 class="cta-title">{{cta.seasonname}}</h2>
+              <h2 class="cta-title">{{Cta.seasonname}}</h2>
 
-              <p class="cta-text">Starting @ UGX {{cta.startingprice}}</p>
+              <p class="cta-text">Starting @ UGX {{Cta.startingprice}}</p>
 
               <button class="cta-btn">Shop now</button>
 

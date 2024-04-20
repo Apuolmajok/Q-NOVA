@@ -1,0 +1,46 @@
+
+{%block content%}
+
+<br></br>
+
+
+<div style="display: flex; flex-wrap: wrap; margin-right: -15px; margin-left: -15px;">
+    <div style="position: relative; width: 100%; padding-right: 15px; padding-left: 30px; flex: 0 0 100%; max-width: 30%; " id='total-orders'>
+        <div style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); border-radius: 5px; padding: 20px; margin: 10px; background: hsl(0, 0%, 47%);">
+            <div style="padding: 2px 16px; text-align: center; color: hsl(353, 100%, 78%);">
+                <h4><b>Total Orders</b></h4>
+            </div>
+            <div style="padding: 2px 16px; text-align: center;">
+                <p style='color: hsl(0, 100%, 70%);'>{{ orders }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div style="position: relative; width: 100%; padding-right: 15px; padding-left: 30px; flex: 0 0 100%; max-width: 30%;" id='orders-delivered' >
+        <div style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); border-radius: 5px; padding: 20px; margin: 10px; background: hsl(0, 0%, 47%);">
+            <div style="padding: 2px 16px; text-align: center; color: hsl(353, 100%, 78%);">
+                <h4><b>Orders Delivered</b></h4>
+            </div>
+            <div style="padding: 2px 16px; text-align: center;">
+                <p style='color: hsl(0, 100%, 70%);'>0</p>
+            </div>
+        </div>
+    </div>
+
+    <div style="position: relative; width: 100%; padding-right: 15px; padding-left: 30px; flex: 0 0 100%; max-width: 30%;" id='pending-orders'>
+        <div style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); border-radius: 5px; padding: 20px; margin: 10px; background: hsl(0, 0%, 47%);">
+            <div style="padding: 2px 16px; text-align: center; color: hsl(353, 100%, 78%);">
+                <h4><b>Pending Orders</b></h4>
+            </div>
+            <div style="padding: 2px 16px; text-align: center;">
+                <p style='color: hsl(0, 100%, 70%);'>0</p>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<br></br>
+{%endblock%}

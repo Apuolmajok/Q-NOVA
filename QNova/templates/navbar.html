@@ -115,6 +115,9 @@
                     <li class="dropdown-item">
                       <a href="{%url 'update_info'%}">User Info</a>
                     </li>
+                    <li class="dropdown-item">
+                      <a href="{%url 'vendorprof'%}">business Profile</a>
+                    </li>
       
                 </li>
             </div>
@@ -412,10 +415,29 @@
 
           <li class="menu-category">
             <a href="{%url 'business'%}" class="menu-title">Businesses</a>
+            <ul class="dropdown-list">
+
+              <li class="dropdown-item">
+                <a href="{%url 'business'%}">Vendors</a>
+              </li>
+
+              <li class="dropdown-item">
+                <a href="{%url 'vendorprof'%}">Become a Vendor</a>
+              </li>
+
+              <li class="dropdown-item">
+                <a href="{%url 'dashboard'%}">Dashboard</a>
+              </li>
+
+              <li class="dropdown-item">
+                <a href="{%url 'vendorprof'%}">Login</a>
+              </li>
+
+            </ul>
           </li>
 
           <li class="menu-category">
-            <a href="#" class="menu-title">Blog</a>
+            <a href="{%url 'blog'%}" class="menu-title">Blog</a>
           </li>
 
           <li class="menu-category">
@@ -434,11 +456,17 @@
         <ion-icon name="menu-outline"></ion-icon>
       </button>
 
-      <button class="action-btn">
+      {% comment %} <button class="action-btn">
         <ion-icon name="bag-handle-outline"></ion-icon>
 
         <span class="count">0</span>
-      </button>
+      </button> {% endcomment %}
+      <a href="{%url 'cart'%}" >
+        <button class="action-btn" >
+         <ion-icon name="cart"></ion-icon>
+         <span class="count" id="cart_total"> {{cartItems}}</span>
+       </button>
+    </a>
 
       <button class="action-btn">
         <ion-icon name="home-outline"></ion-icon>
