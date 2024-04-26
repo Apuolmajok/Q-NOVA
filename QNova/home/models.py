@@ -138,6 +138,8 @@ class Produk(models.Model):
     #Add sales
     is_sale = models.BooleanField(default=False)
     sale_price = models.DecimalField(default=0,decimal_places=2, max_digits=16)
+    digital=models.BooleanField(default=False, null=True, blank=False)
+
    
     def __str__(self):
         return self.name
@@ -160,6 +162,7 @@ class Product_feature(models.Model):
 #Orders
 class Order(models.Model):
     product=models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True)
+    produk=models.ForeignKey(Produk, on_delete=models.CASCADE, null=True, blank=True)
     customer=models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
     quantity=models.IntegerField(default=1)
     address=models.CharField(max_length=200, default='', blank=True)
@@ -190,8 +193,13 @@ class Order(models.Model):
         shipping=False
         orderitems=self.orderitem_set.all()
         for i in orderitems:
-            if i.product.digital==False:
-                shipping=True
+            if i.product:
+                if i.product.digital==False:
+                    shipping=True
+            elif i.produk:
+                if i.produk.digital==False:
+                    shipping=True
+                
 
         return shipping
     
@@ -200,21 +208,26 @@ class Order(models.Model):
     
 class OrderItem(models.Model):
     product=models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True)
+    produk=models.ForeignKey(Produk, on_delete=models.SET_NULL, null=True, blank=True)
     order=models.ForeignKey(Order, on_delete=models.SET_NULL, null=True, blank=True)
     quantity=models.IntegerField(default=1,  null=True, blank=True)
     date_added=models.DateField(default=datetime.datetime.today)
 
     @property
     def get_total(self):
-        total=self.product.price*self.quantity
-        return total
+        if self.product:
+            total=self.product.price*self.quantity
+            return total
+        elif self.produk:
+            total=self.produk.price*self.quantity
+            return total
 
 
 class ShippingAddress(models.Model):
     customer=models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
     order=models.ForeignKey(Order, on_delete=models.SET_NULL, null=True, blank=True)
-    address1=models.CharField(max_length=200, blank=True)
-    address2=models.CharField(max_length=200, blank=True)
+    address=models.CharField(max_length=200, blank=True)
+    # address2=models.CharField(max_length=200, blank=True)
     city=models.CharField(max_length=200, blank=True)
     state=models.CharField(max_length=200, blank=True)
     zipcode=models.CharField(max_length=200, blank=True)

@@ -2,7 +2,7 @@
 
 {% block content%}
 <div class="Cart" style="margin: 0 auto; max-width: 1000px;">
-    <div class="Cart-header" style="color: hsl(353, 100%, 78%); text-align: center; font-size: 300%;">
+    <div class="Cart-header" style="color: hsl(353, 100%, 78%); text-align: center; font-size: 150%;">
         <h1 style="margin: 0; padding: 0;">CheckOut Now</h1>
         <p>Fill in your billing information to checkout</p>
         <br/>
@@ -15,7 +15,8 @@
     <div style="display: flex;">
         <div style="flex: 50%; padding: 20px; margin: 10px; border: 1px solid #ccc; box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19); border-radius: 1rem; border: transparent;">
             <div id="form-wrapper" style="margin: 10px;">
-                <form id="form">
+                <form id="form" method='POST'>
+                    {% csrf_token %}
                     <div id="user-info">
                         <div style="margin-bottom: 10px;">
                             <input required type="text" name="name" placeholder="Name.." style="width: 100%; padding: 8px; margin: 5px 0; box-sizing: border-box; border: 1px solid #ccc; border-radius: 1px; border-bottom-left-radius: 1rem; border-top-left-radius: 1rem; border-top-right-radius: 1rem; border-bottom-right-radius: 1rem;">
@@ -47,10 +48,24 @@
                     </div>
 
                     <hr style="border-top: 1px solid #ccc;">
-                    <input id="form-button" type="submit" value="Continue" style="background-color: #28a745; color: white; padding: 10px; width: 100%; border: none; cursor: pointer; border-radius: 1px; border-bottom-left-radius: 1rem; border-top-left-radius: 1rem; border-top-right-radius: 1rem; border-bottom-right-radius: 1rem;">
+                    {% comment %} <a href='{% url 'payment' %}'> {% endcomment %}
+                     <input id="form-button" type="submit" value="Continue" style="background-color: #28a745; color: white; padding: 10px; width: 100%; border: none; cursor: pointer; border-radius: 1px; border-bottom-left-radius: 1rem; border-top-left-radius: 1rem; border-top-right-radius: 1rem; border-bottom-right-radius: 1rem;">
+                     {% comment %} <button style="background-color:hsl(152, 51%, 52%); border-color: #000; color: white; width: 100%; font-size: 0.7rem; margin-top: 4vh; padding: 1vh; border-radius: 1px; border-bottom-left-radius: 1rem; border-top-left-radius: 1rem; border-top-right-radius: 1rem; border-bottom-right-radius: 1rem;" class="banner-btn">Continue</button> {% endcomment %}
+                    {% comment %} </a>      {% endcomment %}
                 </form>
             </div>
         </div>
+
+
+
+
+       
+
+
+
+
+
+
 
         <div style="flex: 50%; padding: 20px; margin: 10px; border: 1px solid #ccc; box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19); border-radius: 1rem; border: transparent;">
             <div>
@@ -60,12 +75,21 @@
                 <hr style="border-top: 1px solid #ccc;">
                 
                 {%for item in items%}
+                {% if item.product %}
                 <div style="display: flex; margin-bottom: 20px; margin-left: 10px; margin-right: 20px; margin-top: 25px; margin-bottom: 20px; justify-content: space-between;">
                     <div style="flex:2;"><img src="{{item.product.image1.url}}" alt="Product Image" style="width: 50px;"></div>
                     <div style="flex:2; margin-right: 30px;"><p style="margin: 0;">{{item.product.name}}</p></div>
                     <div style="flex:1; margin-right: 45px;"><p style="margin: 0;">UGX {{item.product.price}}</p></div>
                     <div style="flex:1; text-align: right;"><p style="margin: 0;">x {{item.quantity}}</p></div>
                 </div>
+                {% else %}
+                <div style="display: flex; margin-bottom: 20px; margin-left: 10px; margin-right: 20px; margin-top: 25px; margin-bottom: 20px; justify-content: space-between;">
+                    <div style="flex:2;"><img src="{{item.produk.image1.url}}" alt="Produk Image" style="width: 50px;"></div>
+                    <div style="flex:2; margin-right: 30px;"><p style="margin: 0;">{{item.produk.name}}</p></div>
+                    <div style="flex:1; margin-right: 45px;"><p style="margin: 0;">UGX {{item.produk.price}}</p></div>
+                    <div style="flex:1; text-align: right;"><p style="margin: 0;">x {{item.quantity}}</p></div>
+                </div>
+                {% endif %}
                 {%endfor%}
 
                 <hr style="border-top: 1px solid #ccc;">

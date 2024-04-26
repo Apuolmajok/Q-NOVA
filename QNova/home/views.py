@@ -1,15 +1,18 @@
 from django.shortcuts import render, redirect
-from .models import Product, Category, Profile, Product_feature, Order, OrderItem, NewArrival, Trending, TopRated, BestSells, Testimonials, Blog, Blogcategory, Cta,  Produk, Customer, Vendor
+from django.urls import reverse
+from paypal.standard.forms import PayPalPaymentsForm
+from .models import Product, Category, Profile, Product_feature, Order, OrderItem, NewArrival, Trending, TopRated, BestSells, Testimonials, Blog, Blogcategory, Cta,  Produk, Customer, Vendor, ShippingAddress
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .forms import SignUpForm, UpdateUserForm, ChangePasswordForm, UserInfoForm, VendorSignUpForm, ProductForm
+from .forms import SignUpForm, UpdateUserForm, ChangePasswordForm, UserInfoForm, VendorSignUpForm, ProductForm, ShippingAddressForm
 from django import forms
 from django.db.models import Q
 from django.http import JsonResponse, HttpResponse
-import json
+import json, datetime
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
 
 
 # Create your views here.
@@ -203,8 +206,9 @@ def category(request, category_name):
       try:
           #Look up the Category 
       #     category=Category.objects.get(name=category_name)
-          category = Category.objects.get(name__iexact=category_name)
-          products=Product.objects.filter(category=category)
+          category = Category.objects.filter(name=category_name).first()
+          print(category)
+          products=Product.objects.filter(Category=category)
           return render(request, 'category.html', {'products':products, 'category':category})
             
       except:
@@ -213,8 +217,8 @@ def category(request, category_name):
             
       
 def product(request,pk):
-      product = Product.objects.get(id=pk)
-      product = Product.objects.all()
+      product = Product.objects.filter(id=pk).first()
+      # product = Product.objects.all()
       return render(request, 'product.html',{'product':product})
 
 def product_feature(request):
@@ -251,9 +255,9 @@ def cta(request):
       cta = Cta.objects.all()
       return render(request, 'home.html', {'cta': cta})
 
-def blog(request):
-      blogs = Blog.objects.all()
-      return render(request, 'blog.html', {'blogs': blogs})
+# def blog(request):
+#       blogs = Blog.objects.all()
+#       return render(request, 'blog.html', {'blogs': blogs})
 
 def blog(request):
       blogs = Blog.objects.all()
@@ -301,13 +305,16 @@ def Home(request):
     toprateds = TopRated.objects.all()
     bestsells = BestSells.objects.all()
     testimonials = Testimonials.objects.all()
-    cta = Cta.objects.all()
+    cta = Cta.objects.all().first()
     blog = Blog.objects.all()
-    return render(request, 'Home.html', {'products': products,'blog': blog, 'testimonials': testimonials, 'toprateds': toprateds,'bestsells': bestsells, 'product_features': product_features, 'trendings': trendings, 'newarrivals': newarrivals, 'cta': cta, 'cartItems': cartItems})
+    return render(request, 'Home.html', {'products': products,'blogs': blog, 'testimonials': testimonials, 'toprateds': toprateds,'bestsells': bestsells, 'product_features': product_features, 'trendings': trendings, 'newarrivals': newarrivals, 'cta': cta, 'cartItems': cartItems})
 
 
 def about(request):
         return render(request, 'about.html',{})
+  
+def payment(request):
+        return render(request, 'payment.html',{})
 
 def zzTandC(request):
         return render(request, 'zzTandC.html',{})
@@ -411,8 +418,82 @@ def checkout(request):
         items=[]
         order={'get_cart_total':0, 'get_cart_items':0, 'shipping':False}
         cartItems = order['get_cart_items']
+        
+      if request.method == 'POST':
+        shipping_form = ShippingAddressForm(request.POST)
+        if shipping_form.is_valid():
+            shipping_form.save()
+            shippingaddress = ShippingAddress.objects.filter(
+                address=shipping_form.cleaned_data['address'], 
+                city=shipping_form.cleaned_data['city'],
+                state=shipping_form.cleaned_data['state'],
+                zipcode=shipping_form.cleaned_data['zipcode'],
+                ).first()
+            transaction_id = datetime.datetime.now().timestamp()
+            order, created = Order.objects.get_or_create(customer=customer)
+            order.transaction_id = transaction_id
+            shippingaddress.customer = customer
+            shippingaddress.order = order
+            order.save()
+            shippingaddress.save()
+            
+            
+            return redirect("process-order")
+
 
       return render(request, 'checkout.html',{'items':items, 'order':order, 'cartItems': cartItems})
+
+def processOrder(request):
+    # Process order
+    
+      if request.user.is_authenticated:
+        customer=request.user.customer
+        order, created=Order.objects.get_or_create(customer=customer, status=False)
+        items=order.orderitem_set.all()
+        cartItems = order.get_cart_items
+      else:
+        items=[]
+        order={'get_cart_total':0, 'get_cart_items':0, 'shipping':False}
+        cartItems = order['get_cart_items']
+        
+      host = request.get_host()
+
+      total = order.get_cart_total
+
+      paypal_checkout = {
+            'business': settings.PAYPAL_RECEIVER_EMAIL,
+            'amount': total,
+            'item_name': 'Order {}'.format(order.id),
+            'invoice': str(order.transaction_id),
+            'currency_code': 'USD',
+            'notify_url': f'https://{host}{reverse("paypal-ipn")}',
+            'return_url': f'http://{host}{reverse("payment-success")}',
+            'cancel_url': f'http://{host}{reverse("payment-failure")}',
+      }
+      
+      paypal_payment = PayPalPaymentsForm(initial=paypal_checkout)
+      context = {"paypal": paypal_payment, "cartItems": cartItems, "title":"PAYMENT"}
+      
+      return render(request, "payment.html", context)
+
+def paymentsuccessful(request):
+      if request.user.is_authenticated:
+        customer=request.user.customer
+        order, created=Order.objects.get_or_create(customer=customer, status=False)
+        items=order.orderitem_set.all()
+        cartItems = order.get_cart_items
+      else:
+        items=[]
+        order={'get_cart_total':0, 'get_cart_items':0, 'shipping':False}
+        cartItems = order['get_cart_items']
+        
+      messages.success(request, "Payment was successful, please continue shopping.")
+      return render(request, "home.html", {'items':items, 'order':order, 'cartItems': cartItems})
+
+def paymentfailed(request):
+    # Render the payment failed page
+    return HttpResponse("Payment Failed.")
+
 
 def updateItem(request):
       data=json.loads(request.body)
@@ -431,6 +512,41 @@ def updateItem(request):
       order, created=Order.objects.get_or_create(customer=customer, status=False)
 
       orderItem, created=OrderItem.objects.get_or_create(order=order, product=product)
+      # orderItem, created=OrderItem.objects.get_or_create(order=order, produk=produk)
+
+      if action=='add':
+            orderItem.quantity=(orderItem.quantity + 1)
+      elif action=='remove':
+            orderItem.quantity=(orderItem.quantity - 1)
+
+      orderItem.save()
+
+
+      if orderItem.quantity <= 0:
+            orderItem.delete()
+
+      
+
+      return JsonResponse('Item was added', safe=False)
+
+def updateItemp(request):
+      data=json.loads(request.body)
+      # productId=data['productId']
+      produkId=data['produkId']
+      action=data['action']
+
+      print('Action:', action)
+      print('ProdukId:', produkId)
+      # print('ProdukId:', produkId)
+
+
+      customer=request.user.customer
+      # product=Product.objects.get(id=productId)
+      produk=Produk.objects.get(id=produkId)
+      order, created=Order.objects.get_or_create(customer=customer, status=False)
+
+      # orderItem, created=OrderItem.objects.get_or_create(order=order, product=product)
+      orderItem, created=OrderItem.objects.get_or_create(order=order, produk=produk)
 
       if action=='add':
             orderItem.quantity=(orderItem.quantity + 1)
@@ -494,8 +610,8 @@ def dashboard(request):
 
 
 def produk(request,pk):
-      produk = Produk.objects.get(id=pk)
-      produk = Produk.objects.all()
+      produk = Produk.objects.filter(id=pk).first()
+      # produk = Produk.objects.all()
       return render(request, 'bproduks.html',{'produk':produk})
 
 

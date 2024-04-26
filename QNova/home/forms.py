@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, SetPasswordForm
 from django import forms
 from django.utils.safestring import mark_safe
-from .models import Profile, Vendor, Produk, Category
+from .models import Profile, Vendor, Produk, Category, ShippingAddress
 
 
 class UserInfoForm(forms.ModelForm):
@@ -139,6 +139,20 @@ class VendorSignUpForm(forms.ModelForm):
         model = Vendor
         fields = ['logo', 'username', 'email', 'store_name', 'store_description']
         
+        
+class ShippingAddressForm(forms.ModelForm):
+    address = forms.CharField(required=True, label="Address")
+    city = forms.CharField(required=True, label="City")
+    state = forms.CharField(required=True, label="State")
+    zipcode = forms.CharField(required=True, label="Zipcode")
+    country = forms.CharField(required=True, label="country")
+    
+    class Meta:
+        model = ShippingAddress
+        fields = ["address", "city", "state", "zipcode", "country"]
+        
+
+
    
     
 	

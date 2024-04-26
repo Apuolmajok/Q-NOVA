@@ -1345,8 +1345,8 @@
               
                 <div class="showcase-banner">
 
-                  <img src="{{product.image1.url}}"alt="Mens Winter Leathers Jackets" width="300" class="product-img default">
-                  <img src="{{product.image2.url}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img hover">
+                  <img src="{{product.image1.url}}" alt="{{product.name}}" width="300" class="product-img default">
+                  <img src="{{product.image2.url}}" alt="{{product.name}}" width="300" class="product-img hover">
                   
                   <div class="showcase-actions">
 
@@ -1442,16 +1442,16 @@
 
             <div class="testimonial-card">
 
-              <img src="{{ testimonials.image.url }}" alt="allan m" class="testimonial-banner" width="80" height="80">
+              <img src="{{ testimonial.image.url }}" alt="allan m" class="testimonial-banner" width="80" height="80">
 
-              <p class="testimonial-name">{{ testimonials.name }}</p>
+              <p class="testimonial-name">{{ testimonial.name }}</p>
 
-              <p class="testimonial-title">{{ testimonials.title }}</p>
+              <p class="testimonial-title">{{ testimonial.title }}</p>
 
               <img src="{% static 'assets/images/icons/quotes.svg'%}" alt="quotation" class="quotation-img" width="26">
 
               <p class="testimonial-desc">
-               {{ testimonials.description1 }}<b>Quick Nova</b> {{testimonials.description2}}
+               {{ testimonial.description1 }}<b>Quick Nova</b> {{testimonial.description2}}
               </p>
 
             </div>
@@ -1466,15 +1466,15 @@
 
           <div class="cta-container">
 
-            <img src="{{Cta.image.url}}" alt="summer collection" class="cta-banner">
+            <img src="{{cta.image.url}}" alt="summer collection" class="cta-banner">
 
             <a href="#" class="cta-content">
 
-              <p class="discount">{{Cta.discount}}% Discount</p>
+              <p class="discount">{{cta.discount}}% Discount</p>
 
-              <h2 class="cta-title">{{Cta.seasonname}}</h2>
+              <h2 class="cta-title">{{cta.seasonname}}</h2>
 
-              <p class="cta-text">Starting @ UGX {{Cta.startingprice}}</p>
+              <p class="cta-text">Starting @ UGX {{cta.startingprice}}</p>
 
               <button class="cta-btn">Shop now</button>
 
@@ -1600,7 +1600,7 @@
           <div class="blog-card">
 
             <a href="#">
-              <img src="./assets/images/blog-1.jpg" alt="Clothes Retail KPIs 2021 Guide for Clothes Executives" width="300" class="blog-banner">
+              <img src="{% static 'assets/images/blog-1.jpg' %}" alt="Clothes Retail KPIs 2021 Guide for Clothes Executives" width="300" class="blog-banner">
             </a>
 
             <div class="blog-content">
